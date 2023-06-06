@@ -51,6 +51,9 @@ const changeUserInfo = (req, res, next) => {
       if (err.name === 'DocumentNotFoundError') {
         return next(new BadRequestError('Пользователь с указанным _id не найден'));
       }
+      if (err.code === 11000) {
+        return next(new ConflictError('Пользователь с таким email уже существует'));
+      }
       return next(err);
     });
 };
