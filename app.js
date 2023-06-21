@@ -1,5 +1,6 @@
 require('dotenv').config();
 const express = require('express');
+const cors = require('cors');
 const mongoose = require('mongoose');
 const { errors } = require('celebrate');
 const router = require('./routes/index');
@@ -8,6 +9,7 @@ const centralErrorHandler = require('./middlewares/centralErrorHandler');
 
 const { PORT = 3000, NODE_ENV, MONGODB } = process.env;
 const app = express();
+app.use(cors())
 mongoose.connect(NODE_ENV === 'production' ? MONGODB : 'mongodb://localhost:27017/bitfilmsdb')
 
   .then(() => {
